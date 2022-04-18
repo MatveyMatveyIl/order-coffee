@@ -1,3 +1,12 @@
+const modalWindow = document.getElementById('modalWindow');
+const modalWindowOpenBtn = document.querySelector('#submit-button');
+const modalWindowCloseBtn = document.querySelector('.close');
+
+modalWindowOpenBtn.addEventListener('click', (event) => {
+    modalWindow.style.display = 'block';
+    event.preventDefault()});
+modalWindowCloseBtn.addEventListener('click', () => modalWindow.style.display = 'none');
+
 let countCoffe = 1;
 let newForm
 const button = document.querySelector(".add-button")
