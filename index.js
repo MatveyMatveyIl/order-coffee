@@ -1,12 +1,3 @@
-const modalWindow = document.getElementById('modalWindow');
-const modalWindowOpenBtn = document.querySelector('#submit-button');
-const modalWindowCloseBtn = document.querySelector('.close');
-
-modalWindowOpenBtn.addEventListener('click', (event) => {
-    modalWindow.style.display = 'block';
-    event.preventDefault()});
-modalWindowCloseBtn.addEventListener('click', () => modalWindow.style.display = 'none');
-
 let countCoffe = 1;
 let newForm
 const button = document.querySelector(".add-button")
@@ -26,7 +17,38 @@ function remove(target) {
         target.parentElement.remove();
     countCoffe -= 1
 }
+
 // cloneText = (textarea) =>{
 //     text = textarea.value.replace(/(срочно)|(быстрее)|(побыстрее)|(скорее)|(поскорее)|(очень нужно)/gi,"<b>$&</b>");
 //     textarea.parentNode.querySelector("span").innerHTML = text;
 // }
+
+const modalWindow = document.getElementById('modalWindow');
+const modalWindowOpenBtn = document.querySelector('#submit-button');
+const modalWindowCloseBtn = document.querySelector('.close');
+
+modalWindowOpenBtn.addEventListener('click', (event) => {
+    document.querySelector('.modal-body').textContent = `Вы заказали ${countCoffe} ${getModalBodyText()}`;
+    modalWindow.style.display = 'block';
+    event.preventDefault()
+});
+modalWindowCloseBtn.addEventListener('click', () => modalWindow.style.display = 'none');
+
+function getModalBodyText() {
+    const forms = ["напиток",
+        "напитка",
+        "напитков",]
+    const n = Math.abs(countCoffe) % 100;
+    const n1 = n % 10;
+
+    if (n > 10 && n < 20)
+        return forms[2];
+
+    if (n1 > 1 && n1 < 5)
+        return forms[1];
+
+    if (n1 === 1)
+        return forms[0];
+
+    return forms[2];
+}
