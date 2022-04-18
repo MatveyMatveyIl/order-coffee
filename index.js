@@ -26,7 +26,8 @@ function remove(target) {
         target.parentElement.remove();
     countCoffe -= 1
 }
-// cloneText = (textarea) =>{
-//     text = textarea.value.replace(/(срочно)|(быстрее)|(побыстрее)|(скорее)|(поскорее)|(очень нужно)/gi,"<b>$&</b>");
-//     textarea.parentNode.querySelector("span").innerHTML = text;
-// }
+
+cloneText = (textarea) =>{
+    document.getElementsByClassName("comment")[0].textContent =
+        textarea.value.replace(/(срочно)|(быстрее)|(побыстрее)|(скорее)|(поскорее)|(очень нужно)/gi, "<b>$&</b>");
+}
