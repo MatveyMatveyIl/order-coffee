@@ -30,6 +30,7 @@ const modalWindowCloseBtn = document.querySelector('.close');
 modalWindowOpenBtn.addEventListener('click', (event) => {
     document.querySelector('.modal-body').textContent = `Вы заказали ${countCoffe} ${getModalBodyText()}`;
     CreateTable();
+
     modalWindow.style.display = 'block';
     event.preventDefault()
 });
@@ -60,12 +61,17 @@ function CreateTable() {
     let th1 = document.createElement("TH");
     let th2 = document.createElement("TH");
     let th3 = document.createElement("TH");
+    let th4 = document.createElement("TH");
     row.appendChild(th1);
     th1.innerHTML = "Напиток";
     row.appendChild(th2);
     th2.innerHTML = "Молоко";
     row.appendChild(th3);
     th3.innerHTML = "Дополнительно";
+    row.appendChild(th3);
+    th4.innerHTML = "Пожелания";
+    row.appendChild(th4);
+
     FillTable();
 }
 
@@ -80,10 +86,12 @@ function FillTable()
         let td1 = document.createElement("TD");
         const td2 = document.createElement("TD");
         const td3 = document.createElement("TD");
+        const td4 = document.createElement("TD");
 
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);
+        row.appendChild(td4);
 
         let drink = '';
         if (form.drink.value === "espresso")
@@ -122,5 +130,20 @@ function FillTable()
             extra+=" корица";
 
         td3.innerHTML = extra;
+
+        td4.innerHTML = form.getElementsByClassName('comment')[0].textContent;
+    }
+}
+
+const lightboxForm = document.querySelector(".lightbox-form");
+lightboxForm.onsubmit = (el) =>{
+    const form = new FormData(lightboxForm);
+    const orderTime = form.get('order-time').split(':').map(num=>+num);
+    const now = new Date();
+    const nowTime = [now.getHours(), now.getMinutes()];
+    if (orderTime.length == 1 || nowTime[0] > orderTime[0] || nowTime[0] == orderTime[0] && nowTime[1] > orderTime[1]){
+        lightboxForm.querySelector("input").style.border = "1px red solid";
+        alert("Мы не умеем перемещаться во времени. Выберите время позже, чем текущее");
+        return false;
     }
 }
